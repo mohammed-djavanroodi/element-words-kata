@@ -47,21 +47,19 @@ public static class ElementalWords
 
     private static void Parts(string word, int maxLength, int index, List<string> current, List<string[]> results)
     {
-        // Reached the end of the word - add the parts to the result
         if (index == word.Length)
         {
+            // If we get here, we're at the end of the word - Add the parts to the result and stop
             results.Add([.. current]);
             return;
         }
 
-        // Take up to maxLength letters 
-        // Check the word length to make sure we don't go over the word length
         for (var i = 1; i <= maxLength && index + i <= word.Length; i++)
         {
-            var part = word.Substring(index, i);
-            current.Add(part);
-            Parts(word, maxLength, index + i, current, results);
-            current.RemoveAt(current.Count - 1); // Remove the last entry to avoid duplicating the current leter
+            var part = word.Substring(index, i); // Get the current substring 
+            current.Add(part); // Add it to the current list of parts
+            Parts(word, maxLength, index + i, current, results); // Get all the parts from the rest of the word
+            current.RemoveAt(current.Count - 1); // Remove the last entry to avoid duplicating the current letter
         }
     }
 
